@@ -54,7 +54,7 @@ Ce projet met en valeur l’esthétique d’une **boutique de fleurs** à traver
 
 ## 📸 Aperçu visuel
 
-![Aperçu du site](maquette/page_accueil.png)
+![Aperçu du site](/page_accueil.png)
 
 ---
 

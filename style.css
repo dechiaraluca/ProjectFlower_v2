@@ -1,677 +1,736 @@
-/* Reset et base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Open Sans', sans-serif;
-    line-height: 1.6;
-    color: #333;
-}
-
-/* Variables CSS */
-:root {
-    --primary-color: #336863;
-    --accent-color: #d1c8b9;
-    --text-dark: #333;
-    --text-light: #fff;
-    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
-}
-
-/* Header responsive */
-header {
-    background-color: rgba(209, 200, 185, 0.72);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
-    overflow: hidden;
-}
-
-.logo {
-    width: 120px;
-    height: auto;
-}
-
-/* Navigation */
-nav {
-    display: flex;
-    align-items: center;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-}
-
-nav li {
-    position: relative;
-}
-
-nav a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
-    padding-bottom: 5px;
-}
-
-nav a:hover,
-nav a.active {
-    color: white;
-}
-
-/* Effet de barre sous les liens */
-nav li::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: white;
-    transition: width 0.3s ease;
-}
-
-nav li:hover::after,
-nav li.active::after {
-    width: 100%;
-}
-
-/* Social icons */
-.social-icons {
-    display: flex;
-    gap: 1rem;
-}
-
-.social-icons img {
-    width: 35px;
-    height: 35px;
-    transition: var(--transition);
-}
-
-.social-icons img:hover {
-    transform: scale(1.1);
-}
-
-/* Menu mobile */
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    cursor: pointer;
-}
-
-/* Page d'accueil */
-.hero-section {
-    height: 100vh;
-    padding-top: 100px;
-    background: url('https://i.postimg.cc/rpPwSDJB/bg.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    overflow: hidden;
-}
-
-.hero-content {
-    background-color: rgba(209, 200, 185, 0.75);
-    padding: 2rem;
-    max-width: 500px;
-    text-align: center;
-    position: relative;
-    margin-left: 20%;
-}
-
-.hero-title {
-    font-family: 'Playfair Display';
-    font-size: clamp(1.2rem, 2rem);
-    color: var(--primary-color);
-    line-height: 2.8;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.sticker {
-    position: absolute;
-    width: clamp(80px, 12vw, 140px);
-    top: -50px;
-    left: -50px;
-    z-index: 2;
-}
-
-.contact-info {
-    position: absolute;
-    bottom: 5%;
-    left: 2%;
-    font-size: 1rem;
-    font-style: normal;
-    line-height: 1.5;
-    color: var(--primary-color);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Pages internes */
-.page-section {
-    min-height: 100vh;
-    padding: 100px 1rem 1rem 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* Page compositions */
-.compositions-section {
-    padding: 100px 2rem 2rem 2rem;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    overflow: hidden;
-    background: url(lotus.jpg);
-}
-
-.compositions-title {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.692);
-}
-
-.compositions-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.composition-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: var(--transition);
-}
-
-.composition-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-}
-
-.composition-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Page mariages */
-.weddings-section {
-    background: url('https://i.postimg.cc/8zMCV39T/Maquette.png');
-    background-size: cover;
-    background-position: center;
-}
-
-.wedding-content {
-    background-color: rgba(209, 200, 185, 0.78);
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 700px;
-    border: 1px solid var(--primary-color);
-    text-align: center;
-}
-
-.wedding-text {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    text-align: justify;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.wedding-text h2 {
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.cta-button {
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: var(--transition);
-}
-
-.cta-button:hover {
-    background-color: #2a524b;
-}
-
-/* Page à propos */
-.about-section {
-    background: url('https://i.postimg.cc/DfDvpCXg/Maquette-1.png');
-    background-size: cover;
-    background-position: center;
-    padding: 100px 2rem 2rem 2rem;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-.about-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.about-title {
-    grid-column: 1 / -1;
-    background-color: rgba(209, 200, 185, 0.9);
-    border: 2px solid var(--primary-color);
-    padding: 0.8rem;
-    text-align: center;
-    font-size: 1.3rem;
-    color: var(--primary-color);
-    border-radius: 10px;
-}
-
-.left-column {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    height: 100%;
-}
-
-.market-img {
-    width: 100%;
-    height: auto;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.services-box {
-    background-color: rgba(209, 200, 185, 0.9);
-    border: 2px solid var(--primary-color);
-    padding: 1rem;
-    text-align: center;
-    border-radius: 10px;
-    color: var(--primary-color);
-    font-weight: 600;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.bio-text {
-    background-color: rgba(51, 104, 99, 0.9);
-    color: var(--text-light);
-    padding: 1.2rem;
-    border-radius: 10px;
-    text-align: justify;
-    line-height: 1.5;
-    position: relative;
-    font-size: 0.85rem;
-    min-height: 300px;
-}
-
-.hironobu {
-    width: 35%;
-    height: auto;
-    float: right;
-    margin: 0 0 0.8rem 0.8rem;
-    border-radius: 10px;
-}
-
-/* Page contact */
-.contact-section {
-    background: url('https://i.postimg.cc/PrKh9LHb/Maquette.png');
-    background-size: cover;
-    background-position: center;
-    padding-top: 120px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 0;
-}
-
-.contact-title {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-family: 'Playfair Display', serif;
-    color: var(--primary-color);
-}
-
-.contact-container {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 0 2rem;
-    justify-content: center;
-    align-items: stretch;
-    width: 100%;
-    max-width: 1200px;
-    margin-bottom: 2rem;
-    flex: 1;
-    padding: 2rem;
-}
-
-.contact-form {
-    flex: 1;
-    background: #ffffff75;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-form label {
-    display: block;
-    margin: 0.8rem 0 0.3rem;
-    font-weight: 600;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 0.7rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: inherit;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    border-color: var(--primary-color);
-    outline: none;
-}
-
-.contact-submit-btn {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.8rem;
-    margin-top: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: var(--transition);
-}
-
-.contact-submit-btn:hover {
-    background: #28534f;
-}
-
-.contact-infos {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.contact-info-box {
-    background: #ffffff7e;
-    padding: 4rem;
-    box-shadow: var(--shadow);
-    border-radius: 10px;
-    text-align: center;
-}
-
-.contact-info-box h3 {
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-}
-
-.contact-map {
-    width: 100%;
-    height: 350px;
-    border: 0;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-}
-
-footer {
-    background-color: rgba(0, 0, 0, 0.397);
-    color: var(--text-light);
-    text-align: center;
-    padding: 1.5rem;
-    width: 100vw;
-    margin-top: auto;
-}
-
-footer a {
-    color: inherit;
-    text-decoration: none;
-    margin: 0 0.5rem;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header {
-        padding: 0 1rem;
-        height: 60px;
-    }
-
-    .logo {
-        width: 100px;
-    }
-
-    nav ul {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: rgba(209, 200, 185, 0.95);
-        flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
-    }
-
-    nav ul.show {
-        display: flex;
-    }
-
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    .social-icons {
-        gap: 0.5rem;
-    }
-
-    .social-icons img {
-        width: 28px;
-        height: 28px;
-    }
-
-    /* Ajustement mobile pour padding-top */
-    .hero-section {
-        padding-top: 60px;
-    }
-
-    .page-section,
-    .compositions-section {
-        padding-top: 60px;
-        height: auto;
-    }
-
-    .about-section {
-        padding: 60px 1rem 1rem 1rem;
-        height: auto;
-        min-height: 100vh;
-    }
-
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-top: 0;
-    }
-
-    .market-img {
-        max-height: 200px;
-    }
-
-    .contact-section {
-        padding-top: 60px;
-        min-height: 100vh;
-    }
-
-    .contact-container {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .contact-info-box {
-        padding: 1rem;
-        text-align: center;
-    }
-
-    .contact-map {
-        height: 200px;
-    }
-
-    .contact-form {
-        padding: 1rem;
-        gap: 1rem;
-        text-align: center;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        padding: 0.7rem;
-        font-size: 0.9rem;
-    }
-
-    .contact-submit-btn {
-        padding: 0.7rem 1.5rem;
-        font-size: 0.9rem;
-        width: 100%;
-    }
-
-    .hero-content {
-        padding: 1.5rem;
-        margin-left: 0;
-        max-width: 90%;
-    }
-
-    .hero-title {
-        font-size: 1.3rem;
-        line-height: 1.8;
-    }
-
-    .sticker {
-        width: 60px;
-        top: -15px;
-        left: -20px;
-    }
-
-    .contact-info {
-        position: static;
-        margin-top: 1rem;
-        text-align: center;
-        font-size: 0.8rem;
-    }
-
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .wedding-content {
-        margin-right: 0;
-        margin-top: 0;
-        max-width: 95%;
-        padding: 1rem;
-    }
-
-    .wedding-text {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-
-    .cta-button {
-        position: static;
-        margin-top: 1rem;
-        font-size: 0.85rem;
-        padding: 0.7rem 1rem;
-    }
-
-    .compositions-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
-    }
-
-    .composition-card {
-        height: 140px;
-    }
-
-    .compositions-title {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .hironobu {
-        width: 50%;
-    }
-
-    .bio-text {
-        font-size: 0.75rem;
-        padding: 1rem;
-        line-height: 1.4;
-    }
-
-    .services-box {
-        font-size: 0.8rem;
-        padding: 0.8rem;
-        line-height: 1.5;
-    }
-
-    .market-img {
-        max-height: 140px;
-    }
-}
-
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Utility classes */
-.hidden {
-    display: none;
-}
+
+        /* Reset et base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Variables CSS */
+        :root {
+            --primary-color: #336863;
+            --accent-color: #d1c8b9;
+            --text-dark: #333;
+            --text-light: #fff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Header responsive */
+        header {
+            background-color: rgba(209, 200, 185, 0.72);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+            overflow: visible;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+            padding-bottom: 5px;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: white;
+        }
+
+        /* Effet de barre sous les liens */
+        nav li::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+
+        nav li:hover::after,
+        nav li.active::after {
+            width: 100%;
+        }
+
+        /* Social icons */
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons img {
+            width: 35px;
+            height: 35px;
+            transition: var(--transition);
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Menu mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: rgba(51, 104, 99, 0.1);
+        }
+
+        /* Animation du burger */
+        .mobile-menu-btn.active {
+            color: #fff;
+            background-color: var(--primary-color);
+        }
+
+        /* Page d'accueil */
+        .hero-section {
+            height: 100vh;
+            padding-top: 100px;
+            background: url('https://i.postimg.cc/rpPwSDJB/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            background-color: rgba(209, 200, 185, 0.75);
+            padding: 2rem;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            margin-left: 20%;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display';
+            font-size: clamp(1.2rem, 2rem);
+            color: var(--primary-color);
+            line-height: 2.8;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .sticker {
+            position: absolute;
+            width: clamp(80px, 12vw, 140px);
+            top: -50px;
+            left: -50px;
+            z-index: 2;
+        }
+
+        .contact-info {
+            position: absolute;
+            bottom: 5%;
+            left: 2%;
+            font-size: 1rem;
+            font-style: normal;
+            line-height: 1.5;
+            color: var(--primary-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Pages internes */
+        .page-section {
+            min-height: 100vh;
+            padding: 100px 1rem 1rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Page compositions */
+        .compositions-section {
+            padding: 100px 2rem 2rem 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow: hidden;
+        }
+
+        .compositions-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.692);
+        }
+
+        .compositions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .composition-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .composition-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .composition-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .composition-card p {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Page mariages */
+        .weddings-section {
+            background: url('https://i.postimg.cc/8zMCV39T/Maquette.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .wedding-content {
+            background-color: rgba(209, 200, 185, 0.78);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 700px;
+            border: 1px solid var(--primary-color);
+            text-align: center;
+        }
+
+        .wedding-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-align: justify;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .wedding-text h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .cta-button:hover {
+            background-color: #2a524b;
+        }
+
+        /* Page à propos */
+        .about-section {
+            background: url('https://i.postimg.cc/DfDvpCXg/Maquette-1.png');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 2rem 2rem 2rem;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            height: 100%;
+        }
+
+        .market-img {
+            width: 100%;
+            height: auto;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .services-box {
+            background-color: rgba(209, 200, 185, 0.9);
+            border: 2px solid var(--primary-color);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bio-text {
+            background-color: rgba(51, 104, 99, 0.9);
+            color: var(--text-light);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: justify;
+            line-height: 1.5;
+            position: relative;
+            font-size: 0.85rem;
+            min-height: 300px;
+        }
+
+        .hironobu {
+            width: 35%;
+            height: auto;
+            float: right;
+            margin: 0 0 0.8rem 0.8rem;
+            border-radius: 10px;
+        }
+
+        /* Page contact */
+        .contact-section {
+            background: url('https://i.postimg.cc/PrKh9LHb/Maquette.png');
+            background-size: cover;
+            background-position: center;
+            padding-top: 120px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 0;
+        }
+
+        .contact-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 0 2rem;
+            justify-content: center;
+            align-items: stretch;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 2rem;
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .contact-form {
+            flex: 1;
+            background: #ffffff75;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form label {
+            display: block;
+            margin: 0.8rem 0 0.3rem;
+            font-weight: 600;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .contact-submit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .contact-submit-btn:hover {
+            background: #28534f;
+        }
+
+        .contact-infos {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-info-box {
+            background: #ffffff7e;
+            padding: 4rem;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .contact-info-box h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .contact-map {
+            width: 100%;
+            height: 350px;
+            border: 0;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.397);
+            color: var(--text-light);
+            text-align: center;
+            padding: 1.5rem;
+            width: 100vw;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: inherit;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 0 1rem;
+                height: 60px;
+            }
+
+            .logo {
+                width: 100px;
+            }
+
+            /* Menu mobile amélioré */
+            nav {
+                position: relative;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: -1rem;
+                right: -1rem;
+                background-color: rgba(209, 200, 185, 0.98);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1.2rem;
+                border-radius: 0 0 10px 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                transform: translateY(-10px);
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+
+            nav ul.show {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            nav li {
+                text-align: center;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid rgba(51, 104, 99, 0.2);
+            }
+
+            nav li:last-child {
+                border-bottom: none;
+            }
+
+            nav a {
+                font-size: 1.1rem;
+                font-weight: 500;
+                padding: 0.8rem 1rem;
+                border-radius: 5px;
+                display: block;
+                transition: all 0.3s ease;
+            }
+
+            nav a:hover {
+                background-color: rgba(51, 104, 99, 0.1);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .social-icons {
+                gap: 0.5rem;
+            }
+
+            .social-icons img {
+                width: 28px;
+                height: 28px;
+            }
+
+            /* Ajustement mobile pour padding-top */
+            .hero-section {
+                padding-top: 60px;
+            }
+
+            .page-section,
+            .compositions-section {
+                padding-top: 60px;
+                height: auto;
+            }
+
+            .about-section {
+                padding: 60px 1rem 1rem 1rem;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 0;
+            }
+
+            .market-img {
+                max-height: 200px;
+            }
+
+            .contact-section {
+                padding-top: 60px;
+                min-height: 100vh;
+            }
+
+            .contact-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .contact-info-box {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .contact-map {
+                height: 200px;
+            }
+
+            .contact-form {
+                padding: 1rem;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+
+            .contact-submit-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+            }
+
+            .hero-content {
+                padding: 1.5rem;
+                margin-left: 0;
+                max-width: 90%;
+            }
+
+            .hero-title {
+                font-size: 1.3rem;
+                line-height: 1.8;
+            }
+
+            .sticker {
+                width: 60px;
+                top: -15px;
+                left: -20px;
+            }
+
+            .contact-info {
+                position: static;
+                margin-top: 1rem;
+                text-align: center;
+                font-size: 0.8rem;
+            }
+
+            .wedding-content {
+                margin-right: 0;
+                margin-top: 0;
+                max-width: 95%;
+                padding: 1rem;
+            }
+
+            .wedding-text {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+
+            .cta-button {
+                position: static;
+                margin-top: 1rem;
+                font-size: 0.85rem;
+                padding: 0.7rem 1rem;
+            }
+
+            .compositions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .composition-card {
+                height: 140px;
+            }
+
+            .compositions-title {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .hironobu {
+                width: 50%;
+            }
+
+            .bio-text {
+                font-size: 0.75rem;
+                padding: 1rem;
+                line-height: 1.4;
+            }
+
+            .services-box {
+                font-size: 0.8rem;
+                padding: 0.8rem;
+                line-height: 1.5;
+            }
+
+            .market-img {
+                max-height: 140px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Utility classes */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Overlay pour fermer le menu mobile */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+        }
+
+        .mobile-overlay.show {
+            display: block;
+        }

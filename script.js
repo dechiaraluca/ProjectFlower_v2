@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // Navigation entre les sections
-    const navLinks = document.querySelectorAll('.nav-link, .cta-button');
+    const navLinks = document.querySelectorAll('.nav-link, .cta-button, .nav-home');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navMenu = document.getElementById('navMenu');
 
@@ -25,17 +25,12 @@ if (mobileMenuBtn && navMenu) {
                     navMenu.classList.remove('show');
                 }
 
-                // Mettre à jour le lien actif
-                document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
-                if (this.classList.contains('nav-link')) {
-                    this.classList.add('active');
-                }
-
-                // Mettre à jour l'effet de barre
-                document.querySelectorAll('nav li').forEach(li => li.classList.remove('active'));
-                if (this.classList.contains('nav-link')) {
-                    this.parentElement.classList.add('active');
-                }
+                // Mettre à jour le lien actif (et la barre) selon la section affichée
+                document.querySelectorAll('.nav-link').forEach(a => {
+                    const isActive = a.getAttribute('href') === href;
+                    a.classList.toggle('active', isActive);
+                    a.parentElement.classList.toggle('active', isActive);
+                });
             }
         });
     });

@@ -5,41 +5,83 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    line-height: 1.6;
-    color: #333;
-}
-
 /* Variables CSS */
 :root {
     --primary-color: #336863;
+    --primary-dark: #26504c;
     --accent-color: #d1c8b9;
-    --text-dark: #333;
+    --cream: #f6f2ea;
+    --text-dark: #2f3a38;
     --text-light: #fff;
-    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --header-h: 80px;
+    --radius: 14px;
+    --shadow: 0 4px 18px rgba(30, 50, 48, 0.12);
+    --shadow-lg: 0 12px 32px rgba(30, 50, 48, 0.18);
+    --glass: rgba(246, 242, 234, 0.78);
     --transition: all 0.3s ease;
 }
 
-/* Header responsive */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: var(--cream);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ---------- Header ---------- */
 header {
     background-color: rgba(209, 200, 185, 0.72);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    padding: 0 2rem;
+    padding: 0 2.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
-    overflow: hidden;
+    height: var(--header-h);
 }
 
+/* Logo et icônes prennent la même largeur : le menu tombe pile au centre */
+.logo-link,
+.social-icons {
+    flex: 1;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+/* Le logo tient dans la hauteur de la barre */
 .logo {
-    width: 120px;
-    height: auto;
+    height: calc(var(--header-h) - 12px);
+    width: auto;
+    display: block;
 }
 
 /* Navigation */
@@ -51,7 +93,7 @@ nav {
 nav ul {
     display: flex;
     list-style: none;
-    gap: 1.5rem;
+    gap: 2.2rem;
     margin: 0;
     padding: 0;
 }
@@ -63,25 +105,33 @@ nav li {
 nav a {
     color: var(--primary-color);
     text-decoration: none;
-    font-size: 18px;
+    font-size: 17px;
+    letter-spacing: 0.04em;
     transition: color 0.3s ease;
-    padding-bottom: 5px;
+    padding: 6px 0;
+    display: inline-block;
 }
 
 nav a:hover,
 nav a.active {
-    color: white;
+    color: var(--primary-dark);
+}
+
+nav a.active {
+    font-weight: 600;
 }
 
 /* Effet de barre sous les liens */
 nav li::after {
     content: '';
     position: absolute;
-    bottom: -2px;
-    left: 0;
+    bottom: 0;
+    left: 50%;
     width: 0;
     height: 2px;
-    background-color: white;
+    border-radius: 2px;
+    background-color: var(--primary-color);
+    transform: translateX(-50%);
     transition: width 0.3s ease;
 }
 
@@ -93,17 +143,24 @@ nav li.active::after {
 /* Social icons */
 .social-icons {
     display: flex;
-    gap: 1rem;
+    justify-content: flex-end;
+    gap: 0.9rem;
+}
+
+.social-icons a {
+    display: block;
+    border-radius: 50%;
 }
 
 .social-icons img {
-    width: 35px;
-    height: 35px;
+    width: 34px;
+    height: 34px;
+    display: block;
     transition: var(--transition);
 }
 
 .social-icons img:hover {
-    transform: scale(1.1);
+    transform: translateY(-2px) scale(1.08);
 }
 
 /* Menu mobile */
@@ -111,382 +168,511 @@ nav li.active::after {
     display: none;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    line-height: 1;
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
     color: var(--primary-color);
     cursor: pointer;
+    transition: var(--transition);
 }
 
-/* Page d'accueil */
-.hero-section {
-    height: 100vh;
-    padding-top: 100px;
-    background: url('https://i.postimg.cc/rpPwSDJB/bg.png');
+.mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- Sections (commun) ---------- */
+.page-section {
+    min-height: 100vh;
+    padding: calc(var(--header-h) + 1.5rem) 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--cream);
     background-size: cover;
     background-position: center;
+    animation: fadeIn 0.5s ease both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Titres de section : pas de fond, juste un halo clair pour la lisibilité */
+.section-title {
+    text-align: center;
+    font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+}
+
+/* Sur le fond sombre des compositions, le titre passe en blanc */
+.compositions-section .section-title {
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Boîtes "verre dépoli" réutilisées */
+.hero-content,
+.wedding-content,
+.services-box,
+.contact-form,
+.contact-info-box {
+    background-color: var(--glass);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ---------- Page d'accueil ---------- */
+.hero-section {
+    background-image: url('images/bg-accueil.webp');
     background-attachment: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    overflow: hidden;
 }
 
 .hero-content {
-    background-color: rgba(209, 200, 185, 0.75);
-    padding: 2rem;
-    max-width: 500px;
+    background-color: rgba(209, 200, 185, 0.72);
+    padding: 3rem 2.5rem 2.2rem;
+    max-width: 520px;
     text-align: center;
     position: relative;
     margin-left: 20%;
 }
 
 .hero-title {
-    font-family: 'Playfair Display';
-    font-size: clamp(1.2rem, 2rem);
-    color: var(--primary-color);
-    line-height: 2.8;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--primary-dark);
+    line-height: 1.45;
 }
 
+/* Autocollant : posé, il ne bouge pas */
 .sticker {
     position: absolute;
     width: clamp(80px, 12vw, 140px);
-    top: -50px;
-    left: -50px;
+    height: auto;
+    top: -55px;
+    left: -55px;
     z-index: 2;
 }
 
-.contact-info {
-    position: absolute;
-    bottom: 5%;
-    left: 2%;
-    font-size: 1rem;
-    font-style: normal;
-    line-height: 1.5;
-    color: var(--primary-color);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+/* Adresse + téléphone, façon carte de visite */
+.hero-address {
+    margin-top: 1.6rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(38, 80, 76, 0.3);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--primary-dark);
 }
 
-/* Pages internes */
-.page-section {
-    min-height: 100vh;
-    padding: 100px 1rem 1rem 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+.hero-address span {
+    white-space: nowrap;
 }
 
-/* Page compositions */
+.hero-address span + span::before {
+    content: '·';
+    margin: 0 0.7em;
+}
+
+/* ---------- Page compositions ---------- */
 .compositions-section {
-    padding: 100px 2rem 2rem 2rem;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    overflow: hidden;
-    background: url(lotus.jpg);
-}
-
-.compositions-title {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.692);
+    background-image: url('images/bg-compositions.webp');
+    /* Taille des cartes calculée pour que tout tienne dans l'écran */
+    --card-h: calc((100vh - var(--header-h) - 160px) / 2);
+    --card-w: min(29vw, 420px, calc(var(--card-h) * 4 / 3));
 }
 
 .compositions-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
+    grid-template-columns: repeat(3, var(--card-w));
+    gap: 1rem;
+    justify-content: center;
 }
 
 .composition-card {
-    background: white;
-    border-radius: 10px;
+    border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: var(--transition);
+    aspect-ratio: 4 / 3;
+    background: var(--accent-color);
+    box-shadow: var(--shadow);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .composition-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
 }
 
 .composition-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
 }
 
-/* Page mariages */
+.composition-card:hover img {
+    transform: scale(1.05);
+}
+
+/* ---------- Page mariages ---------- */
 .weddings-section {
-    background: url('https://i.postimg.cc/8zMCV39T/Maquette.png');
-    background-size: cover;
-    background-position: center;
+    background-image: url('images/bg-mariages.webp');
 }
 
 .wedding-content {
-    background-color: rgba(209, 200, 185, 0.78);
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 700px;
-    border: 1px solid var(--primary-color);
+    background-color: rgba(209, 200, 185, 0.8);
+    padding: 2.2rem 3rem;
+    max-width: 720px;
     text-align: center;
 }
 
 .wedding-text {
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 1rem;
+    line-height: 1.7;
     text-align: justify;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    hyphens: auto;
+    color: var(--primary-dark);
+    margin-bottom: 1.6rem;
 }
 
 .wedding-text h2 {
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    line-height: 1.3;
     text-align: center;
 }
 
-.cta-button {
+.cta-button,
+.contact-submit-btn {
     background-color: var(--primary-color);
     color: var(--text-light);
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 2rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 999px;
+    font-family: inherit;
     font-size: 1rem;
     font-weight: 600;
+    letter-spacing: 0.03em;
     text-decoration: none;
     display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(51, 104, 99, 0.3);
     transition: var(--transition);
 }
 
-.cta-button:hover {
-    background-color: #2a524b;
+.cta-button:hover,
+.contact-submit-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
-/* Page à propos */
+/* ---------- Page à propos ---------- */
 .about-section {
-    background: url('https://i.postimg.cc/DfDvpCXg/Maquette-1.png');
-    background-size: cover;
-    background-position: center;
-    padding: 100px 2rem 2rem 2rem;
-    min-height: 100vh;
-    overflow-x: hidden;
+    background-image: url('images/bg-apropos.webp');
 }
 
 .about-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 1.5rem;
+    max-width: 1100px;
     width: 100%;
-}
-
-.about-title {
-    grid-column: 1 / -1;
-    background-color: rgba(209, 200, 185, 0.9);
-    border: 2px solid var(--primary-color);
-    padding: 0.8rem;
-    text-align: center;
-    font-size: 1.3rem;
-    color: var(--primary-color);
-    border-radius: 10px;
+    align-items: center;
 }
 
 .left-column {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-    height: 100%;
+    gap: 1.2rem;
 }
 
 .market-img {
     width: 100%;
     height: auto;
-    max-height: 250px;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
 }
 
 .services-box {
-    background-color: rgba(209, 200, 185, 0.9);
-    border: 2px solid var(--primary-color);
-    padding: 1rem;
+    background-color: rgba(209, 200, 185, 0.85);
+    padding: 1rem 1.5rem;
     text-align: center;
-    border-radius: 10px;
-    color: var(--primary-color);
+    color: var(--primary-dark);
     font-weight: 600;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 0.95rem;
+    line-height: 1.9;
 }
 
 .bio-text {
-    background-color: rgba(51, 104, 99, 0.9);
+    background-color: rgba(51, 104, 99, 0.92);
     color: var(--text-light);
-    padding: 1.2rem;
-    border-radius: 10px;
+    padding: 1.8rem 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
     text-align: justify;
-    line-height: 1.5;
-    position: relative;
-    font-size: 0.85rem;
-    min-height: 300px;
+    hyphens: auto;
+    line-height: 1.7;
+    font-size: 0.95rem;
 }
 
 .hironobu {
-    width: 35%;
+    width: 30%;
     height: auto;
     float: right;
-    margin: 0 0 0.8rem 0.8rem;
+    margin: 0.3rem 0 0.6rem 1.2rem;
     border-radius: 10px;
 }
 
-/* Page contact */
+/* ---------- Page contact ---------- */
 .contact-section {
-    background: url('https://i.postimg.cc/PrKh9LHb/Maquette.png');
-    background-size: cover;
-    background-position: center;
-    padding-top: 120px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background-image: url('images/bg-contact.webp');
+    padding-left: 0;
+    padding-right: 0;
     padding-bottom: 0;
-}
-
-.contact-title {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-family: 'Playfair Display', serif;
-    color: var(--primary-color);
 }
 
 .contact-container {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 0 2rem;
-    justify-content: center;
-    align-items: stretch;
+    gap: 1.5rem;
     width: 100%;
-    max-width: 1200px;
-    margin-bottom: 2rem;
-    flex: 1;
-    padding: 2rem;
+    max-width: 1100px;
+    padding: 0 2rem 1.5rem;
 }
 
 .contact-form {
     flex: 1;
-    background: #ffffff75;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    border-radius: 10px;
+    padding: 1.5rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.field {
     display: flex;
     flex-direction: column;
 }
 
+.field-grow {
+    flex: 1;
+}
+
 .contact-form label {
-    display: block;
-    margin: 0.8rem 0 0.3rem;
+    margin-bottom: 0.3rem;
     font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--primary-dark);
 }
 
 .contact-form input,
 .contact-form textarea {
     width: 100%;
-    padding: 0.7rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid rgba(51, 104, 99, 0.25);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.85);
     font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-form textarea {
+    flex: 1;
+    min-height: 70px;
+    resize: none;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(51, 104, 99, 0.15);
     outline: none;
 }
 
 .contact-submit-btn {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.8rem;
-    margin-top: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: var(--transition);
-}
-
-.contact-submit-btn:hover {
-    background: #28534f;
+    align-self: center;
+    padding: 0.75rem 3rem;
 }
 
 .contact-infos {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 .contact-info-box {
-    background: #ffffff7e;
-    padding: 4rem;
-    box-shadow: var(--shadow);
-    border-radius: 10px;
+    padding: 1.4rem 2rem;
     text-align: center;
+    line-height: 1.8;
 }
 
 .contact-info-box h3 {
-    margin-bottom: 1rem;
-    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+    font-size: 1.3rem;
 }
 
 .contact-map {
     width: 100%;
-    height: 350px;
+    flex: 1;
+    min-height: 160px;
     border: 0;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
 }
 
 footer {
-    background-color: rgba(0, 0, 0, 0.397);
+    background-color: rgba(38, 80, 76, 0.88);
     color: var(--text-light);
-    text-align: center;
-    padding: 1.5rem;
-    width: 100vw;
-    margin-top: auto;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    font-size: 0.82rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3rem 2rem;
 }
 
 footer a {
     color: inherit;
     text-decoration: none;
-    margin: 0 0.5rem;
+    margin: 0 0.4rem;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
 }
 
 footer a:hover {
+    opacity: 1;
     text-decoration: underline;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    header {
-        padding: 0 1rem;
-        height: 60px;
+/* ---------- Desktop : chaque section tient dans l'écran ---------- */
+@media (min-width: 769px) {
+    .page-section {
+        height: 100vh;
+        min-height: 560px;
     }
 
-    .logo {
-        width: 100px;
+    /* Titre + formulaire centrés, footer collé en bas */
+    .contact-section .section-title {
+        margin-top: auto;
+    }
+
+    .contact-container {
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: 600px;
+    }
+
+    footer {
+        margin-top: auto;
+    }
+}
+
+/* Écrans d'ordinateur peu hauts (portables) : on resserre */
+@media (min-width: 769px) and (max-height: 760px) {
+    :root {
+        --header-h: 70px;
+    }
+
+    .page-section {
+        padding-top: calc(var(--header-h) + 1rem);
+        padding-bottom: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.7rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .compositions-section {
+        --card-h: calc((100vh - var(--header-h) - 120px) / 2);
+    }
+
+    .wedding-content {
+        padding: 1.6rem 2.6rem;
+    }
+
+    .wedding-text {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 1.1rem;
+    }
+
+    .wedding-text h2 {
+        font-size: 1.45rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .bio-text {
+        font-size: 0.86rem;
+        line-height: 1.55;
+        padding: 1.3rem 1.6rem;
+    }
+
+    .services-box {
+        font-size: 0.85rem;
+        line-height: 1.7;
+    }
+
+    .contact-container {
+        padding-bottom: 1rem;
+    }
+
+    .contact-form {
+        padding: 1.1rem 1.5rem;
+        gap: 0.5rem;
+    }
+
+    .contact-form input {
+        padding: 0.45rem 0.8rem;
+    }
+
+    .contact-info-box {
+        padding: 0.9rem 1.5rem;
+        line-height: 1.6;
+    }
+
+    .contact-info-box h3 {
+        font-size: 1.15rem;
+    }
+
+    .contact-submit-btn {
+        padding: 0.6rem 3rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+    .hero-content {
+        margin-left: 0;
+    }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+    :root {
+        --header-h: 64px;
+    }
+
+    header {
+        padding: 0 1rem;
     }
 
     nav ul {
@@ -495,14 +681,17 @@ footer a:hover {
         top: 100%;
         left: 0;
         right: 0;
-        background-color: rgba(209, 200, 185, 0.95);
+        background-color: rgba(236, 230, 219, 0.97);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         flex-direction: column;
+        align-items: center;
         padding: 1rem;
-        gap: 1rem;
+        gap: 0.4rem;
     }
 
     nav ul.show {
         display: flex;
+        animation: fadeIn 0.25s ease both;
     }
 
     .mobile-menu-btn {
@@ -518,157 +707,123 @@ footer a:hover {
         height: 28px;
     }
 
-    /* Ajustement mobile pour padding-top */
+    .page-section {
+        padding: calc(var(--header-h) + 1.5rem) 1rem 1.5rem;
+    }
+
+    /* "fixed" est mal supporté sur mobile */
     .hero-section {
-        padding-top: 60px;
-    }
-
-    .page-section,
-    .compositions-section {
-        padding-top: 60px;
-        height: auto;
-    }
-
-    .about-section {
-        padding: 60px 1rem 1rem 1rem;
-        height: auto;
-        min-height: 100vh;
-    }
-
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-top: 0;
-    }
-
-    .market-img {
-        max-height: 200px;
-    }
-
-    .contact-section {
-        padding-top: 60px;
-        min-height: 100vh;
-    }
-
-    .contact-container {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .contact-info-box {
-        padding: 1rem;
-        text-align: center;
-    }
-
-    .contact-map {
-        height: 200px;
-    }
-
-    .contact-form {
-        padding: 1rem;
-        gap: 1rem;
-        text-align: center;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        padding: 0.7rem;
-        font-size: 0.9rem;
-    }
-
-    .contact-submit-btn {
-        padding: 0.7rem 1.5rem;
-        font-size: 0.9rem;
-        width: 100%;
+        background-attachment: scroll;
     }
 
     .hero-content {
-        padding: 1.5rem;
+        padding: 2.2rem 1.5rem 1.6rem;
         margin-left: 0;
-        max-width: 90%;
+        max-width: 92%;
     }
 
     .hero-title {
-        font-size: 1.3rem;
-        line-height: 1.8;
+        font-size: 1.4rem;
+    }
+
+    .hero-address {
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+    }
+
+    .hero-address span {
+        display: block;
+    }
+
+    .hero-address span + span::before {
+        content: none;
     }
 
     .sticker {
-        width: 60px;
-        top: -15px;
-        left: -20px;
-    }
-
-    .contact-info {
-        position: static;
-        margin-top: 1rem;
-        text-align: center;
-        font-size: 0.8rem;
-    }
-
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .wedding-content {
-        margin-right: 0;
-        margin-top: 0;
-        max-width: 95%;
-        padding: 1rem;
-    }
-
-    .wedding-text {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-
-    .cta-button {
-        position: static;
-        margin-top: 1rem;
-        font-size: 0.85rem;
-        padding: 0.7rem 1rem;
+        width: 64px;
+        top: -24px;
+        left: -18px;
     }
 
     .compositions-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
+        width: 100%;
     }
 
-    .composition-card {
-        height: 140px;
+    .wedding-content {
+        max-width: 100%;
+        padding: 1.5rem 1.2rem;
     }
 
-    .compositions-title {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+    .wedding-text {
+        font-size: 0.92rem;
+        line-height: 1.65;
     }
 
-    .hironobu {
-        width: 50%;
+    .about-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .bio-text {
-        font-size: 0.75rem;
-        padding: 1rem;
-        line-height: 1.4;
+        font-size: 0.9rem;
+        padding: 1.3rem;
+        line-height: 1.65;
+    }
+
+    .hironobu {
+        width: 40%;
     }
 
     .services-box {
-        font-size: 0.8rem;
-        padding: 0.8rem;
-        line-height: 1.5;
+        font-size: 0.85rem;
+        padding: 1rem;
     }
 
-    .market-img {
-        max-height: 140px;
+    .contact-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem 1.5rem;
+    }
+
+    .contact-form {
+        padding: 1.3rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    .contact-form textarea {
+        min-height: 110px;
+    }
+
+    .contact-submit-btn {
+        width: 100%;
+    }
+
+    .contact-info-box {
+        padding: 1.3rem;
+    }
+
+    .contact-map {
+        min-height: 220px;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
     }
 }
 
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
+/* Respecte les utilisateurs qui préfèrent moins d'animations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
 /* Utility classes */
